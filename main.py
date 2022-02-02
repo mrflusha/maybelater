@@ -1,5 +1,7 @@
-import telebot, config, logging
+import telebot, logging, os
 from telebot import types
+
+token = os.environ['TOKEN']
 
 class pizza(object):
 	"""docstring for pizza"""
@@ -10,7 +12,7 @@ class pizza(object):
 		self.size = size
 		self.pay_type = pay_type
 
-bot = telebot.TeleBot(config.token)
+bot = telebot.TeleBot(token)
 logging.basicConfig(level=logging.INFO)
 
 
@@ -68,6 +70,9 @@ def confirm(message):
 		elif pizza_size and pay_type and text_message == "нет":
 			a = telebot.types.ReplyKeyboardRemove()
 			bot.send_message(message.chat.id, f"Введите команду /start и повторите сначала {message.from_user.username}", reply_markup = a)
+			pizza_size = "костыль"
+			pay_type = ""
+			rage = False
 			
 	except NameError as e:
 			pass
